@@ -1,0 +1,28 @@
+# Secrets and local environment files
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Python environment and generated files
+backend/venv/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/chroma_db/
+
+# Frontend dependencies and build
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
