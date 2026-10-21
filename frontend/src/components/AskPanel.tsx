@@ -8,7 +8,6 @@ import {
   Check,
   Circle,
   LoaderCircle,
-  MessageSquareText,
   ShieldCheck
 } from "lucide-react";
 
@@ -90,74 +89,56 @@ export default function AskPanel({
   }
 
   return (
-    <section className="panel overflow-hidden">
-      <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
+    <section className="tg-studio panel overflow-hidden">
+      <div className="tg-studio-heading">
         <div className="flex items-center gap-3">
-          <div
-            className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700"
-            aria-hidden="true"
-          >
-            <MessageSquareText size={21} strokeWidth={1.8} />
-          </div>
-
           <div>
-            <h2 className="text-base font-semibold tracking-tight text-slate-950">
+            <h2 className="tg-panel-title">
               Ask a question
             </h2>
 
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="tg-body mt-2 text-xs">
               Get an answer with traceable evidence and conflict analysis
             </p>
           </div>
         </div>
       </div>
 
-      <div className="p-5 sm:p-6">
+      <div className="tg-studio-content">
         <form onSubmit={handleSubmit}>
-          <label
-            htmlFor="truthguard-question"
-            className="mb-2 block text-sm font-medium text-slate-800"
-          >
-            Your question
-          </label>
+          <div className="tg-editor">
+            <label htmlFor="truthguard-question" className="tg-input-label">
+              Your question
+            </label>
 
-          <textarea
-            id="truthguard-question"
-            name="question"
-            className="text-input min-h-[126px] resize-y leading-6"
-            placeholder="For example: How many days of annual leave do I get?"
-            value={question}
-            maxLength={MAX_QUESTION_LENGTH}
-            disabled={loading}
-            onChange={(event) => setQuestion(event.target.value)}
-            aria-describedby="question-counter question-guidance"
-            required
-          />
+            <textarea
+              id="truthguard-question"
+              name="question"
+              className="tg-input text-input min-h-[126px] resize-y leading-6"
+              placeholder="For example: How many days of annual leave do I get?"
+              value={question}
+              maxLength={MAX_QUESTION_LENGTH}
+              disabled={loading}
+              onChange={(event) => setQuestion(event.target.value)}
+              aria-describedby="question-counter question-guidance"
+              required
+            />
 
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <p
-              id="question-guidance"
-              className="text-xs leading-5 text-slate-500"
-            >
-              Answers are grounded in the indexed document corpus.
-            </p>
-
-            <p
-              id="question-counter"
-              className={`shrink-0 text-xs tabular-nums ${
-                question.length >= MAX_QUESTION_LENGTH
-                  ? "font-medium text-red-700"
-                  : "text-slate-500"
-              }`}
-              aria-live="polite"
-            >
-              {question.length}/{MAX_QUESTION_LENGTH}
-            </p>
+            <div className="tg-editor-meta">
+              <p id="question-guidance">Grounded in your indexed corpus</p>
+              <p
+                id="question-counter"
+                className={question.length >= MAX_QUESTION_LENGTH ? "text-red-700" : ""}
+                aria-live="polite"
+              >
+                {question.length}/{MAX_QUESTION_LENGTH}
+              </p>
+            </div>
           </div>
 
           <button
             type="submit"
-            className="primary-button mt-5 w-full sm:w-auto"
+            className="tg-button primary-button mt-4 w-full sm:w-auto"
             disabled={!canSubmit}
           >
             {loading ? (
@@ -175,9 +156,9 @@ export default function AskPanel({
         </form>
 
         {seedQuestions.length > 0 && (
-          <div className="mt-7 border-t border-slate-200 pt-5">
+          <div className="tg-samples">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-slate-900">
+              <h3 className="tg-label">
                 Try a sample question
               </h3>
 
@@ -186,22 +167,21 @@ export default function AskPanel({
               </span>
             </div>
 
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="tg-sample-grid">
               {seedQuestions.map((seedQuestion, index) => (
                 <button
                   key={`${seedQuestion.question}-${index}`}
                   type="button"
-                  className="group max-w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-left hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="tg-sample-card group max-w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-left hover:border-slate-400 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={loading}
                   onClick={() => setQuestion(seedQuestion.question)}
                   title={`Expected status: ${seedQuestion.expected_status}`}
                 >
-                  <span className="block text-xs font-medium leading-5 text-slate-700">
+                  <span className="block">
                     {seedQuestion.question}
                   </span>
 
-                  <span className="mt-1 block text-[11px] leading-4 text-slate-500">
-                    Expected:{" "}
+                  <span className={`tg-badge ${seedQuestion.expected_status === "consistent" ? "" : "tg-badge--neutral"}`}>
                     {EXPECTED_STATUS_LABELS[
                       seedQuestion.expected_status
                     ]}

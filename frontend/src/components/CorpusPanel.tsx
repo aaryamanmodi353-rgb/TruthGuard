@@ -5,7 +5,6 @@ import {
 } from "react";
 
 import {
-  BookOpen,
   CheckCircle2,
   FileText,
   FolderOpen,
@@ -226,17 +225,10 @@ export default function CorpusPanel({
   }
 
   return (
-    <section className="panel overflow-hidden">
-      <div className="border-b border-slate-200 px-5 py-5">
+    <section className="tg-corpus panel overflow-hidden">
+      <div className="tg-corpus-summary">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700"
-              aria-hidden="true"
-            >
-              <BookOpen size={21} strokeWidth={1.8} />
-            </div>
-
             <div>
               <h2 className="text-base font-semibold tracking-tight text-slate-950">
                 Document corpus
@@ -264,23 +256,23 @@ export default function CorpusPanel({
           </button>
         </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <p className="text-xs font-medium text-slate-500">
+        <div className="tg-metrics">
+          <div className="tg-metric">
+            <p className="tg-small">
               Documents
             </p>
 
-            <p className="mt-1 text-2xl font-semibold tabular-nums text-slate-950">
+            <p className="tg-metric-value">
               {documentCount}
             </p>
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <p className="text-xs font-medium text-slate-500">
+          <div className="tg-metric">
+            <p className="tg-small">
               Indexed chunks
             </p>
 
-            <p className="mt-1 text-2xl font-semibold tabular-nums text-slate-950">
+            <p className="tg-metric-value">
               {chunkCount}
             </p>
           </div>
@@ -288,7 +280,7 @@ export default function CorpusPanel({
 
         <button
           type="button"
-          className="primary-button mt-4 w-full"
+          className="tg-button tg-button--secondary tg-button--wide mt-4 w-full"
           disabled={isBusy}
           onClick={() => void handleSeed()}
         >
@@ -309,12 +301,11 @@ export default function CorpusPanel({
         </p>
       </div>
 
-      <div className="border-b border-slate-200 p-5">
-        <h3 className="section-heading">Add documents</h3>
+      <div className="tg-upload-section">
+        <h3 className="tg-label">Add your documents</h3>
 
-        <p className="mt-1 text-xs leading-5 text-slate-500">
-          Upload Markdown or plain-text files containing YAML
-          front-matter.
+        <p className="tg-small">
+          Drop Markdown or plain-text files here
         </p>
 
         <input
@@ -329,7 +320,7 @@ export default function CorpusPanel({
         />
 
         <div
-          className={`mt-4 rounded-lg border border-dashed p-5 text-center ${
+          className={`tg-upload mt-4 rounded-lg border border-dashed p-5 text-center ${
             isDragging
               ? "border-slate-500 bg-slate-100"
               : "border-slate-300 bg-white"
@@ -366,7 +357,7 @@ export default function CorpusPanel({
 
           <button
             type="button"
-            className="secondary-button mt-4"
+            className="tg-button tg-button--secondary mt-1"
             disabled={isBusy}
             onClick={() => fileInputRef.current?.click()}
           >
@@ -405,7 +396,7 @@ export default function CorpusPanel({
         )}
       </div>
 
-      <div className="p-5">
+      <div className="tg-indexed-documents">
         <div className="flex items-center justify-between gap-3">
           <h3 className="section-heading">Indexed documents</h3>
 
@@ -517,6 +508,19 @@ export default function CorpusPanel({
             ))}
           </div>
         )}
+      </div>
+      <div className="tg-evidence-note" aria-hidden="true">
+        <div className="tg-mini-document">
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="tg-evidence-copy">
+          <span className="tg-evidence-title">Evidence, not assumptions.</span>
+          <span className="tg-evidence-description">
+            Every claim connected to its source.
+          </span>
+        </div>
       </div>
     </section>
   );

@@ -16,6 +16,7 @@ import StalenessList from "./components/StalenessList";
 import AgentTrace from "./components/AgentTrace";
 import EmptyState from "./components/EmptyState";
 import ErrorNotice from "./components/ErrorNotice";
+import { ShieldCheck } from "lucide-react";
 
 import {
   ApiError,
@@ -169,10 +170,10 @@ export default function App() {
   const hasResult = result !== null;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="tg-app min-h-screen bg-slate-50">
       <Header />
 
-      <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+      <div className="tg-main">
         {error && (
           <div className="mb-6">
             <ErrorNotice
@@ -182,8 +183,37 @@ export default function App() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
-          <aside className="min-w-0 lg:col-span-4">
+        <section className="tg-intro" aria-labelledby="workspace-title">
+          <div className="tg-intro-copy">
+            <p className="tg-eyebrow">Workspace / Northwind Labs</p>
+            <h1 id="workspace-title" className="tg-title">
+              Clarity starts with evidence.
+            </h1>
+            <p className="tg-body">
+              Ask your documents. Trace every answer. Surface what doesn’t agree.
+            </p>
+          </div>
+
+          <div className="tg-scene" aria-hidden="true">
+            <div className="tg-document-stack">
+              <div className="tg-sheet tg-sheet--back" />
+              <div className="tg-sheet tg-sheet--middle" />
+              <div className="tg-sheet tg-sheet--front">
+                <ShieldCheck />
+                <span className="tg-document-line tg-document-line--title" />
+                <span className="tg-document-line" />
+                <span className="tg-document-line tg-document-line--short" />
+              </div>
+            </div>
+            <div className="tg-source-chip">
+              <ShieldCheck aria-hidden="true" />
+              <span>Source verified</span>
+            </div>
+          </div>
+        </section>
+
+        <div className="tg-columns">
+          <aside className="min-w-0">
             <CorpusPanel
               documents={documents}
               health={health}
@@ -191,7 +221,7 @@ export default function App() {
             />
           </aside>
 
-          <main className="min-w-0 space-y-6 lg:col-span-8">
+          <main className="tg-results min-w-0">
             <AskPanel
               seedQuestions={seedQuestions}
               loading={asking}
@@ -261,8 +291,8 @@ export default function App() {
           </main>
         </div>
 
-        <footer className="mt-10 border-t border-slate-200 pt-5">
-          <p className="text-center text-xs leading-5 text-slate-500">
+        <footer className="tg-footer">
+          <p>
             TruthGuard · Document-grounded answers with transparent
             verification.
           </p>
